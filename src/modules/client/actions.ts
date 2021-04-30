@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AppStage, clientSlice } from "modules/client/slice";
+import { AppStage, clientSlice, Snapshot } from "modules/client/slice";
 
 type ChangeStageArg = {
     ms: number;
@@ -18,7 +18,7 @@ export const changeStage = createAsyncThunk<void, ChangeStageArg>(
 );
 
 type SetSnapshotArg = {
-    snapshot: Blob;
+    snapshot: Snapshot;
     nextStage: AppStage;
 };
 

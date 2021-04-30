@@ -36,10 +36,10 @@ export const CameraOutput: React.FC<CameraOutputProps> = ({
     });
 
     const handleClick = React.useCallback(async () => {
-        const data = await takePicture();
+        const picture = await takePicture();
 
-        if (data) {
-            onTakeSnapshot(data);
+        if (picture) {
+            onTakeSnapshot(picture);
         }
     }, [takePicture, onTakeSnapshot]);
 

@@ -1,1 +1,4 @@
-export type Entity = string;
+export type Entity = {
+    title: string;
+    image: string;
+};

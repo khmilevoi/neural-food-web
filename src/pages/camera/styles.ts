@@ -14,6 +14,8 @@ export const PhotoButtonContainer = styled.div`
     height: var(--size);
     border-radius: calc(var(--size) / 2);
 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
     &:active {
         opacity: 0.8;
     }

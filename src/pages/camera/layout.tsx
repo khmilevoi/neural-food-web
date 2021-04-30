@@ -10,7 +10,12 @@ const Layout: React.FC = () => {
 
     const handleTakeSnapshot = React.useCallback(
         (snapshot: Blob) => {
-            dispatch(setSnapshot({ snapshot, nextStage: "prediction" }));
+            dispatch(
+                setSnapshot({
+                    snapshot,
+                    nextStage: "prediction",
+                })
+            );
         },
         [dispatch]
     );

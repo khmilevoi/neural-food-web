@@ -2,12 +2,19 @@ import { SwipeContainer } from "components/swipe-container";
 import { PageWrapper } from "pages/page-wrapper";
 import * as React from "react";
 import * as Client from "modules/client";
+import * as Model from "modules/model";
 import { Container, ImagePreview } from "./styles";
 
 const Layout: React.FC = () => {
     const client = Client.useClient();
 
-    if (client.snapshot == null) {
+    const predictions = Model.usePredictions(
+        client.model,
+        client.snapshot,
+        client.labels
+    );
+
+    if (client.snapshot == null || client.model == null) {
         return null;
     }
 
@@ -17,15 +24,16 @@ const Layout: React.FC = () => {
                 <ImagePreview src={URL.createObjectURL(client.snapshot)} />
 
                 <SwipeContainer containerHeight={window.innerHeight}>
-                    {content}
+                    {predictions.map((prediction) => (
+                        <div>
+                            <img src={prediction.label.image} />
+                            {prediction.label.title} - {prediction.accuracy}
+                        </div>
+                    ))}
                 </SwipeContainer>
             </Container>
         </PageWrapper>
     );
 };
-
-const content = Array.from(Array(50), (_, index) => {
-    return <p key={index}>JOKER</p>;
-});
 
 export default Layout;
