@@ -7,6 +7,7 @@ export const Global = createGlobalStyle`
       height: 100%;
       padding: 0;
       margin: 0;
+      overscroll-behavior-y: contain;
     }
     
     * {

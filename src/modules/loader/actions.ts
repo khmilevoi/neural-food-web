@@ -4,8 +4,14 @@ import { changeStage } from "modules/client/actions";
 import { loaderApi } from "modules/loader/api";
 import { loaderSlice } from "modules/loader/slice";
 
-export const loadData = (entity: "model" | "labels", nextStage: AppStage) =>
-    createAsyncThunk("loader/load-model", async (arg, thunkAPI) => {
+type LoadDataArg = {
+    entity: "model" | "labels";
+    nextStage: AppStage;
+};
+
+export const loadData = createAsyncThunk<void, LoadDataArg>(
+    "loader/load-model",
+    async ({ entity, nextStage }, thunkAPI) => {
         thunkAPI.dispatch(loaderSlice.actions.changeStatus("progress"));
 
         const onDownloadProgress = (progressEvent: ProgressEvent) => {
@@ -32,4 +38,5 @@ export const loadData = (entity: "model" | "labels", nextStage: AppStage) =>
 
         thunkAPI.dispatch(loaderSlice.actions.changeStatus("default"));
         thunkAPI.dispatch(changeStage({ stage: nextStage, ms: 1000 }));
-    });
+    }
+);

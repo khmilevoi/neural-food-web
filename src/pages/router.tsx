@@ -17,5 +17,5 @@ export const Router: React.FC<RouterProps> = ({ pages }) => {
 
     const Component = route?.component ?? React.Fragment;
 
-    return <Component />;
+    return <Component stage={client.stage} />;
 };
