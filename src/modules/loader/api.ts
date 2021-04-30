@@ -22,7 +22,7 @@ export const loaderApi = {
         onDownloadProgress: (progressEvent: any) => void,
         cancelToken?: CancelToken
     ) => {
-        const response = await axios.get<{ list: Label.Entity[] }>(
+        const response = await axios.get<Label.Entity[]>(
             createPath(endpoints.labels),
             {
                 cancelToken,
@@ -30,6 +30,6 @@ export const loaderApi = {
             }
         );
 
-        return response.data.list;
+        return response.data;
     },
 };

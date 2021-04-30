@@ -39,4 +39,5 @@ export const Content = styled.div`
     flex-direction: column;
     height: 100%;
     overflow-y: auto;
+    padding-top: 15px;
 `;

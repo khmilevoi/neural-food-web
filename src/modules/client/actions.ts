@@ -26,6 +26,6 @@ export const setSnapshot = createAsyncThunk<void, SetSnapshotArg>(
     "client/set-sbapshot",
     ({ snapshot, nextStage }, thunkAPI) => {
         thunkAPI.dispatch(clientSlice.actions.setSnapshot(snapshot));
-        thunkAPI.dispatch(changeStage({ stage: nextStage, ms: 1000 }));
+        thunkAPI.dispatch(changeStage({ stage: nextStage, ms: 0 }));
     }
 );

@@ -15,5 +15,5 @@ type FadeInProps = {
 };
 
 export const FadeIn = styled.div<FadeInProps>`
-    // animation: ${fadeIn} ${(props) => props.duration}s linear 1;
+    animation: ${fadeIn} ${(props) => props.duration}s linear 1;
 `;

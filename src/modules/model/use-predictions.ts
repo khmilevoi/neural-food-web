@@ -52,7 +52,7 @@ const predictImage = async (
 
     const data = tf.browser.fromPixels(image).expandDims();
 
-    const predict = model.predict(data);
+    const predict = await model.predict(data);
 
     if (Array.isArray(predict)) {
         const promises = predict.map((item) => item.data());
