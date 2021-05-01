@@ -1,14 +1,9 @@
 import styled from "styled-components";
 
-type ContainerProps = {
-    shift: number;
-};
-
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    top: calc(100% - ${({ shift }) => shift}px);
     transition: 0.1s;
 `;
 

@@ -50,9 +50,13 @@ const predictImage = async (
 ): Promise<number[]> => {
     const image = await blobToImage(target);
 
-    const data = tf.browser.fromPixels(image).expandDims();
+    const data = await tf.browser.fromPixelsAsync(image);
+    const preparedData = data
+        .resizeNearestNeighbor([299, 299])
+        .toFloat()
+        .expandDims(0);
 
-    const predict = await model.predict(data);
+    const predict = await model.predict(preparedData);
 
     if (Array.isArray(predict)) {
         const promises = predict.map((item) => item.data());

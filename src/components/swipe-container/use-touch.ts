@@ -36,11 +36,11 @@ export const useTouch = (
 
             const touch = event.targetTouches.item(0);
 
-            const shift = max - normalizeNumber(touch.pageY);
+            const shift = max - normalizeNumber(touch.pageY, 0, max - min);
 
             setShift(shift);
         },
-        [setStage, setShift, max]
+        [setStage, setShift, max, min]
     );
 
     const createHandler = React.useCallback<CreateHandler>(
@@ -60,9 +60,13 @@ export const useTouch = (
     return [createHandler, shift, stage];
 };
 
-const normalizeNumber = (num: number) => {
-    if (num < 0) {
-        return 0;
+const normalizeNumber = (num: number, min: number, max: number) => {
+    if (num < min) {
+        return min;
+    }
+
+    if (num > max) {
+        return max;
     }
 
     return num;

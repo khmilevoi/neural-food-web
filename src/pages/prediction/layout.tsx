@@ -48,7 +48,7 @@ const Predictions: React.FC<PredictionsProps> = ({ list }) => {
     return (
         <>
             {list.map((item) => (
-                <Prediction>
+                <Prediction key={item.label.title}>
                     <PredictionImage src={item.label.image} />
 
                     <PredictionInfo>
