@@ -10,6 +10,5 @@ ReactDOM.render(
     document.getElementById("root")
 );
 
-console.log(process.env.PUBLIC_URL);
-
-serviceWorkerRegistration.register();
+require("offline-plugin/runtime").install();
+serviceWorkerRegistration.unregister();
