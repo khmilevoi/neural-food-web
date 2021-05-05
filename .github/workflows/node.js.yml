@@ -21,6 +21,8 @@ jobs:
           persist-credentials: false
 
       - name: Install and Build
+        env:
+          PUBLIC_URL: /neural-food-web
         run: |
           npm install
           npm run build
