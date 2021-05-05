@@ -18,6 +18,7 @@ export const Header = styled.div<HeaderProps>`
     align-items: center;
     border-radius: 99999px 99999px 0 0;
     background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 `;
 
 export const ActiveElement = styled.div`
