@@ -110,7 +110,6 @@
     ]
   },
   "devDependencies": {
-    "offline-plugin": "^5.0.7",
     "prettier": "^2.2.1"
   },
   "jest": {

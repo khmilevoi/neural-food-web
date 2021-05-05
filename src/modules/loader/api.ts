@@ -1,7 +1,8 @@
-import axios, { CancelToken } from "axios";
-import { createPath, endpoints } from "shared";
+import axios, {CancelToken} from "axios";
 import * as Label from "modules/label";
 import * as Model from "modules/model";
+import {endpoints} from "shared";
+
 
 export const loaderApi = {
     model: async (
@@ -9,13 +10,13 @@ export const loaderApi = {
         cancelToken?: CancelToken
     ) => {
         const response = await axios.get<Model.Entity>(
-            createPath(endpoints.model),
+            endpoints.model,
             {
                 cancelToken,
                 onDownloadProgress,
             }
         );
-
+        
         return response.data;
     },
     labels: async (
@@ -23,13 +24,13 @@ export const loaderApi = {
         cancelToken?: CancelToken
     ) => {
         const response = await axios.get<Label.Entity[]>(
-            createPath(endpoints.labels),
+            endpoints.labels,
             {
                 cancelToken,
                 onDownloadProgress,
             }
         );
-
+        
         return response.data;
     },
 };

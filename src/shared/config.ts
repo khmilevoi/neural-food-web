@@ -1,6 +1,6 @@
 export const config = {
     api: {
-        endpoint: "https://192.168.1.67:3000",
+        endpoint: "https://drive.google.com/u/0/uc",
     },
 };
 
