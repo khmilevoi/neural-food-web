@@ -7,6 +7,16 @@ export const Container = styled.div`
     position: relative;
 `;
 
+export const BackButton = styled.div`
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    color: white;
+    z-index: 1000;
+    font-size: 30px;
+    opacity: 0.5;
+`;
+
 export const ImagePreview = styled.img`
     width: 100%;
     height: 100%;
@@ -15,6 +25,7 @@ export const ImagePreview = styled.img`
 
 export const Prediction = styled.div`
     display: flex;
+    position: relative;
 `;
 
 export const PredictionImage = styled.img`

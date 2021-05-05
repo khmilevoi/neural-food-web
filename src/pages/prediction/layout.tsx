@@ -1,9 +1,13 @@
+import { BackIcon } from "components/icons";
 import { SwipeContainer } from "components/swipe-container";
+import * as Client from "modules/client";
+import { changeStage } from "modules/client/actions";
+import * as Model from "modules/model";
 import { PageWrapper } from "pages/page-wrapper";
 import * as React from "react";
-import * as Client from "modules/client";
-import * as Model from "modules/model";
+import { useDispatch } from "react-redux";
 import {
+    BackButton,
     Container,
     ImagePreview,
     Prediction,
@@ -23,6 +27,12 @@ const Layout: React.FC = () => {
         client.labels
     );
 
+    const dispatch = useDispatch();
+
+    const handleBack = React.useCallback(() => {
+        dispatch(changeStage({ stage: "camera", ms: 0 }));
+    }, [dispatch]);
+
     if (client.snapshot == null || client.model == null) {
         return null;
     }
@@ -30,6 +40,10 @@ const Layout: React.FC = () => {
     return (
         <PageWrapper>
             <Container>
+                <BackButton onClick={handleBack}>
+                    <BackIcon />
+                </BackButton>
+
                 <ImagePreview src={URL.createObjectURL(client.snapshot)} />
 
                 <SwipeContainer containerHeight={window.innerHeight}>
@@ -54,13 +68,13 @@ const Predictions: React.FC<PredictionsProps> = ({ list }) => {
                     <PredictionInfo>
                         <PredictionLine>
                             <PredictionTitle>
-                                Name: {item.label.title}
+                                {item.label.title}
                             </PredictionTitle>
                         </PredictionLine>
 
                         <PredictionLine>
                             <PredictionAccuracy>
-                                Accuracy: {item.accuracy.toFixed(2)}
+                                Accuracy: {(item.accuracy * 100).toFixed(3)}%
                             </PredictionAccuracy>
                         </PredictionLine>
                     </PredictionInfo>

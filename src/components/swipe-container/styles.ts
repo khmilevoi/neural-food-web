@@ -28,11 +28,15 @@ export const ActiveElement = styled.div`
     cursor: pointer;
 `;
 
-export const Content = styled.div`
+type ContentProps = {
+    header: number;
+};
+
+export const Content = styled.div<ContentProps>`
     background-color: white;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100% - ${({ header }) => header}px);
     overflow-y: auto;
     padding-top: 15px;
 `;

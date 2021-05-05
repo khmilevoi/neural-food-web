@@ -51,10 +51,7 @@ const predictImage = async (
     const image = await blobToImage(target);
 
     const data = await tf.browser.fromPixelsAsync(image);
-    const preparedData = data
-        .resizeNearestNeighbor([299, 299])
-        .toFloat()
-        .expandDims(0);
+    const preparedData = data.expandDims(0);
 
     const predict = await model.predict(preparedData);
 

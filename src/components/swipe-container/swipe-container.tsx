@@ -32,7 +32,7 @@ export const SwipeContainer: React.FC<SwipeContainerProps> = ({
             >
                 <ActiveElement />
             </Header>
-            <Content>{children}</Content>
+            <Content header={HEADER_SIZE}>{children}</Content>
         </Container>
     );
 };
