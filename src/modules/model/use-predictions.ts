@@ -52,9 +52,15 @@ const predictImage = async (
 
     const data = await tf.browser.fromPixelsAsync(image);
     const preparedData = data
-        // .resizeNearestNeighbor([299, 299])
-        // .toFloat()
+        .resizeNearestNeighbor([299, 299])
+        .toFloat()
+        .sub(127)
+        .div(127)
         .expandDims(0);
+
+    const d = await preparedData.data();
+
+    debugger;
 
     const predict = await model.predict(preparedData);
 
