@@ -33,7 +33,7 @@ export const loadData = createAsyncThunk<void, LoadDataArg>(
         if (entity === "labels") {
             const labels = await loaderApi.labels(onDownloadProgress);
 
-            thunkAPI.dispatch(clientSlice.actions.setModel(labels));
+            thunkAPI.dispatch(clientSlice.actions.setLabels(labels));
         }
 
         thunkAPI.dispatch(loaderSlice.actions.changeStatus("default"));

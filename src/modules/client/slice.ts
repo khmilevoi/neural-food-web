@@ -7,9 +7,11 @@ import { Selector } from "store";
 interface ClientState {
     model?: Model.Entity;
     labels?: Label.Entity[];
-    snapshot?: Blob;
+    snapshot?: Snapshot;
     stage: AppStage;
 }
+
+export type Snapshot = Blob;
 
 export type AppStage = "load-model" | "load-labels" | "camera" | "prediction";
 
@@ -30,7 +32,7 @@ export const clientSlice = createSlice({
         changeStage: (state, action: PayloadAction<AppStage>) => {
             state.stage = action.payload;
         },
-        setSnapshot: (state, action: PayloadAction<Blob>) => {
+        setSnapshot: (state, action: PayloadAction<Snapshot>) => {
             state.snapshot = action.payload;
         },
     },

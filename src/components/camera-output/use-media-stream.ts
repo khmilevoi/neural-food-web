@@ -5,14 +5,15 @@ type UseMediaStreamProps = {
     height: number;
 };
 
-export const useMediaStream = (
-    size: UseMediaStreamProps
-): [MediaStream | undefined, string | undefined] => {
+export const useMediaStream = ({
+    height,
+    width,
+}: UseMediaStreamProps): [MediaStream | undefined, string | undefined] => {
     const [stream, setStream] = React.useState<MediaStream>();
     const [error, setError] = React.useState<string>();
 
     React.useEffect(() => {
-        createVideoStream(size)
+        createVideoStream({ width, height })
             .then((stream) => {
                 setStream(stream);
             })
@@ -21,7 +22,7 @@ export const useMediaStream = (
 
                 setError("Camera is not available");
             });
-    }, [setStream, setError, size.width, size.height]);
+    }, [setStream, setError, width, height]);
 
     return [stream, error];
 };

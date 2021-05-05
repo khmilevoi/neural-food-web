@@ -1,31 +1,87 @@
+import { BackIcon } from "components/icons";
 import { SwipeContainer } from "components/swipe-container";
+import * as Client from "modules/client";
+import { changeStage } from "modules/client/actions";
+import * as Model from "modules/model";
 import { PageWrapper } from "pages/page-wrapper";
 import * as React from "react";
-import * as Client from "modules/client";
-import { Container, ImagePreview } from "./styles";
+import { useDispatch } from "react-redux";
+import {
+    BackButton,
+    Container,
+    ImagePreview,
+    Prediction,
+    PredictionAccuracy,
+    PredictionImage,
+    PredictionInfo,
+    PredictionLine,
+    PredictionTitle,
+} from "./styles";
 
 const Layout: React.FC = () => {
     const client = Client.useClient();
 
-    if (client.snapshot == null) {
+    const predictions = Model.usePredictions(
+        client.model,
+        client.snapshot,
+        client.labels
+    );
+
+    const dispatch = useDispatch();
+
+    const handleBack = React.useCallback(() => {
+        dispatch(changeStage({ stage: "camera", ms: 0 }));
+    }, [dispatch]);
+
+    if (client.snapshot == null || client.model == null) {
         return null;
     }
 
     return (
         <PageWrapper>
             <Container>
+                <BackButton onClick={handleBack}>
+                    <BackIcon />
+                </BackButton>
+
                 <ImagePreview src={URL.createObjectURL(client.snapshot)} />
 
                 <SwipeContainer containerHeight={window.innerHeight}>
-                    {content}
+                    <Predictions list={predictions} />
                 </SwipeContainer>
             </Container>
         </PageWrapper>
     );
 };
 
-const content = Array.from(Array(50), (_, index) => {
-    return <p key={index}>JOKER</p>;
-});
+type PredictionsProps = {
+    list: Model.Prediction[];
+};
+
+const Predictions: React.FC<PredictionsProps> = ({ list }) => {
+    return (
+        <>
+            {list.map((item) => (
+                <Prediction key={item.label.title}>
+                    <PredictionImage src={item.label.image} />
+
+                    <PredictionInfo>
+                        <PredictionLine>
+                            <PredictionTitle>
+                                {item.label.title}
+                            </PredictionTitle>
+                        </PredictionLine>
+
+                        <PredictionLine>
+                            <PredictionAccuracy>
+                                Accuracy: {(item.accuracy * 100).toFixed(3)}%
+                            </PredictionAccuracy>
+                        </PredictionLine>
+                    </PredictionInfo>
+                </Prediction>
+            ))}
+        </>
+    );
+};
 
 export default Layout;

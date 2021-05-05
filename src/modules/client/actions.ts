@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AppStage, clientSlice } from "modules/client/slice";
+import { AppStage, clientSlice, Snapshot } from "modules/client/slice";
 
 type ChangeStageArg = {
     ms: number;
@@ -18,7 +18,7 @@ export const changeStage = createAsyncThunk<void, ChangeStageArg>(
 );
 
 type SetSnapshotArg = {
-    snapshot: Blob;
+    snapshot: Snapshot;
     nextStage: AppStage;
 };
 
@@ -26,6 +26,6 @@ export const setSnapshot = createAsyncThunk<void, SetSnapshotArg>(
     "client/set-sbapshot",
     ({ snapshot, nextStage }, thunkAPI) => {
         thunkAPI.dispatch(clientSlice.actions.setSnapshot(snapshot));
-        thunkAPI.dispatch(changeStage({ stage: nextStage, ms: 1000 }));
+        thunkAPI.dispatch(changeStage({ stage: nextStage, ms: 0 }));
     }
 );

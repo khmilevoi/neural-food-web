@@ -1,14 +1,9 @@
 import styled from "styled-components";
 
-type ContainerProps = {
-    shift: number;
-};
-
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    top: calc(100% - ${({ shift }) => shift}px);
     transition: 0.1s;
 `;
 
@@ -23,6 +18,7 @@ export const Header = styled.div<HeaderProps>`
     align-items: center;
     border-radius: 99999px 99999px 0 0;
     background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 `;
 
 export const ActiveElement = styled.div`
@@ -33,10 +29,15 @@ export const ActiveElement = styled.div`
     cursor: pointer;
 `;
 
-export const Content = styled.div`
+type ContentProps = {
+    header: number;
+};
+
+export const Content = styled.div<ContentProps>`
     background-color: white;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100% - ${({ header }) => header}px);
     overflow-y: auto;
+    padding-top: 15px;
 `;
