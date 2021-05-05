@@ -11,7 +11,7 @@ if ("serviceWorker" in navigator) {
 
 let cacheName = "neural-food"
 
-let urls_to_cache = [
+let paths = [
     "/index.html",
     "/",
     "/sw.js",
@@ -20,7 +20,7 @@ let urls_to_cache = [
 
 self.addEventListener("install", (e) => {
     e.waitUntil(caches.open(cacheName).then((cache) => {
-        return cache.addAll(urls_to_cache)
+        return cache.addAll(paths)
     }))
 })
 
