@@ -1,36 +1,24 @@
-import axios, {CancelToken} from "axios";
+import axios, { CancelToken } from "axios";
 import * as Label from "modules/label";
-import * as Model from "modules/model";
-import {endpoints} from "shared";
-
+import * as tf from "@tensorflow/tfjs";
+import { endpoints } from "shared";
 
 export const loaderApi = {
-    model: async (
-        onDownloadProgress: (progressEvent: ProgressEvent) => void,
-        cancelToken?: CancelToken
-    ) => {
-        const response = await axios.get<Model.Entity>(
-            endpoints.model,
-            {
-                cancelToken,
-                onDownloadProgress,
-            }
-        );
-        
-        return response.data;
+    model: (onDownloadProgress: (fraction: number) => void) => {
+        return tf.loadLayersModel(endpoints.model, {
+            onProgress: onDownloadProgress,
+        });
     },
     labels: async (
-        onDownloadProgress: (progressEvent: any) => void,
+        onDownloadProgress: (fraction: number) => void,
         cancelToken?: CancelToken
     ) => {
-        const response = await axios.get<Label.Entity[]>(
-            endpoints.labels,
-            {
-                cancelToken,
-                onDownloadProgress,
-            }
-        );
-        
+        const response = await axios.get<Label.Entity[]>(endpoints.labels, {
+            cancelToken,
+            onDownloadProgress: (event) =>
+                onDownloadProgress((event.loaded * 100) / event.total),
+        });
+
         return response.data;
     },
 };

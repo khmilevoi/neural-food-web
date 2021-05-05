@@ -1,7 +1,6 @@
 import * as Client from "modules/client";
 import * as Label from "modules/label";
 import { Entity } from "modules/model/entity";
-import { useModel } from "modules/model/use-model";
 import * as tf from "@tensorflow/tfjs";
 import * as React from "react";
 
@@ -11,11 +10,10 @@ export type Prediction = {
 };
 
 export const usePredictions = (
-    modelDescriptor?: Entity,
+    model?: Entity,
     snapshot?: Client.Snapshot,
     labels?: Label.Entity[]
 ) => {
-    const model = useModel(modelDescriptor);
     const [prediction, setPrediction] = React.useState<Prediction[]>([]);
 
     React.useEffect(() => {
@@ -54,13 +52,9 @@ const predictImage = async (
     const preparedData = data
         .resizeNearestNeighbor([299, 299])
         .toFloat()
-        .sub(127)
-        .div(127)
+        .div(255)
+        .add(-1)
         .expandDims(0);
-
-    const d = await preparedData.data();
-
-    debugger;
 
     const predict = await model.predict(preparedData);
 

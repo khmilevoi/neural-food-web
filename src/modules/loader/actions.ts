@@ -14,29 +14,32 @@ export const loadData = createAsyncThunk<void, LoadDataArg>(
     async ({ entity, nextStage }, thunkAPI) => {
         thunkAPI.dispatch(loaderSlice.actions.changeStatus("progress"));
 
-        const onDownloadProgress = (progressEvent: ProgressEvent) => {
-            const progress = (progressEvent.loaded * 100) / progressEvent.total;
-
-            setTimeout(() => {
-                thunkAPI.dispatch(
-                    loaderSlice.actions.setProgress(Math.floor(progress))
-                );
-            }, 300);
+        const onDownloadProgress = (progress: number) => {
+            thunkAPI.dispatch(
+                loaderSlice.actions.setProgress(Math.floor(progress))
+            );
         };
 
-        if (entity === "model") {
-            const model = await loaderApi.model(onDownloadProgress);
+        try {
+            if (entity === "model") {
+                const model = await loaderApi.model(onDownloadProgress);
 
-            thunkAPI.dispatch(clientSlice.actions.setModel(model));
+                thunkAPI.dispatch(clientSlice.actions.setModel(model));
+            }
+
+            if (entity === "labels") {
+                const labels = await loaderApi.labels(onDownloadProgress);
+
+                thunkAPI.dispatch(clientSlice.actions.setLabels(labels));
+            }
+
+            thunkAPI.dispatch(loaderSlice.actions.changeStatus("default"));
+            thunkAPI.dispatch(changeStage({ stage: nextStage, ms: 1000 }));
+        } catch (error) {
+            console.error("Load data: ", error);
+
+            thunkAPI.dispatch(clientSlice.actions.setError(error));
+            thunkAPI.dispatch(changeStage({ stage: "error", ms: 0 }));
         }
-
-        if (entity === "labels") {
-            const labels = await loaderApi.labels(onDownloadProgress);
-
-            thunkAPI.dispatch(clientSlice.actions.setLabels(labels));
-        }
-
-        thunkAPI.dispatch(loaderSlice.actions.changeStatus("default"));
-        thunkAPI.dispatch(changeStage({ stage: nextStage, ms: 1000 }));
     }
 );
