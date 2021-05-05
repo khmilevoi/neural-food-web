@@ -18,8 +18,6 @@ let urls_to_cache = [
     "/manifest.json"
 ]
 
-let cache;
-
 self.addEventListener("install", (e) => {
     e.waitUntil(caches.open(cacheName).then((cache) => {
         return cache.addAll(urls_to_cache)
@@ -31,19 +29,20 @@ self.addEventListener("fetch", (event) => {
         const cache = await caches.open(cacheName);
         const cachedFiles = await cache.match(event.request);
 
-        if (cachedFiles) {
-            return cachedFiles
-        } else {
-            try {
+        try {
+            const response = await fetch(event.request);
 
-                const response = await fetch(event.request);
-                await cache.put(event.request, response.clone());
-                return response
-            } catch (error) {
+            await cache.put(event.request, response.clone());
+
+            return response
+        } catch (error) {
+            if(cachedFiles) {
+                return cachedFiles
+            } else {
                 throw error
             }
-
         }
+
     })())
 
 })
