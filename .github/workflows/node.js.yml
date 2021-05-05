@@ -23,6 +23,7 @@ jobs:
       - name: Install and Build
         env:
           PUBLIC_URL: /neural-food-web
+          API_ENDPOINT: https://khmilevoi.github.io/neural-food-backend/
         run: |
           npm install
           npm run build

@@ -1,6 +1,7 @@
+console.log(process.env);
 export const config = {
     api: {
-        endpoint: "https://drive.google.com/u/0/uc",
+        endpoint: process.env.API_ENDPOINT,
     },
 };
 
