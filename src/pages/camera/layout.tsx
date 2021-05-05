@@ -1,6 +1,11 @@
 import { CameraOutput } from "components/camera-output";
+import { CameraIcon } from "components/icons";
 import { setSnapshot } from "modules/client/actions";
-import { Container, PhotoButtonContainer } from "pages/camera/styles";
+import {
+    Container,
+    PhotoButtonContainer,
+    LoadButtonContainer,
+} from "pages/camera/styles";
 import { PageWrapper } from "pages/page-wrapper";
 import * as React from "react";
 import { useDispatch } from "react-redux";
@@ -8,11 +13,11 @@ import { useDispatch } from "react-redux";
 const Layout: React.FC = () => {
     const dispatch = useDispatch();
 
-    const handleTakeSnapshot = React.useCallback(
-        (snapshot: Blob) => {
+    const handleLoadPhoto = React.useCallback(
+        (photo: Blob) => {
             dispatch(
                 setSnapshot({
-                    snapshot,
+                    snapshot: photo,
                     nextStage: "prediction",
                 })
             );
@@ -26,8 +31,9 @@ const Layout: React.FC = () => {
                 <CameraOutput
                     width={window.innerWidth}
                     height={window.innerHeight}
-                    buttonElement={<PhotoButton />}
-                    onTakeSnapshot={handleTakeSnapshot}
+                    takeSnapshotElement={<PhotoButton />}
+                    loadPhotoElement={<LoadPhotoButton />}
+                    onLoadPhoto={handleLoadPhoto}
                 />
             </Container>
         </PageWrapper>
@@ -36,6 +42,14 @@ const Layout: React.FC = () => {
 
 const PhotoButton: React.FC = () => {
     return <PhotoButtonContainer />;
+};
+
+const LoadPhotoButton: React.FC = () => {
+    return (
+        <LoadButtonContainer>
+            <CameraIcon />
+        </LoadButtonContainer>
+    );
 };
 
 export default Layout;

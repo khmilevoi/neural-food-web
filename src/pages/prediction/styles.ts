@@ -14,7 +14,6 @@ export const BackButton = styled.div`
     color: white;
     z-index: 1000;
     font-size: 30px;
-    opacity: 0.5;
 `;
 
 export const ImagePreview = styled.img`

@@ -9,7 +9,7 @@ export const useTouch = (
     max: number
 ): [CreateHandler, number, TouchStage] => {
     const [stage, setStage] = React.useState<TouchStage>("default");
-    const [shift, setShift] = React.useState(55);
+    const [shift, setShift] = React.useState(min);
 
     const handleTouchStart = React.useCallback(() => {
         setStage("start");

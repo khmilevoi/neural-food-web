@@ -14,7 +14,7 @@ export const SwipeContainer: React.FC<SwipeContainerProps> = ({
 }) => {
     const containerRef = React.useRef<HTMLDivElement>(null);
 
-    const [createHandler, shift] = useTouch(HEADER_SIZE, containerHeight);
+    const [createHandler, shift] = useTouch(355, containerHeight);
 
     React.useEffect(() => {
         if (containerRef.current) {

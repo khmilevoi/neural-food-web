@@ -20,3 +20,8 @@ export const PhotoButtonContainer = styled.div`
         opacity: 0.8;
     }
 `;
+
+export const LoadButtonContainer = styled.div`
+    color: white;
+    font-size: 25px;
+`;
