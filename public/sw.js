@@ -9,13 +9,23 @@ if ("serviceWorker" in navigator) {
     })
 }
 
-let cacheName = "neural-food"
+const createPath = (path) => {
+    if (location.hostname === "localhost") {
+        return path;
+    }
+
+    const [name] = location.pathname.slice(1).split("/");
+
+    return `/${name}${path}`
+}
+
+const cacheName = "neural-food"
 
 let paths = [
-    "/index.html",
-    "/",
-    "/sw.js",
-    "/manifest.json"
+    createPath("/index.html"),
+    createPath("/"),
+    createPath("/sw.js"),
+    createPath("/manifest.json"),
 ]
 
 self.addEventListener("install", (e) => {
@@ -36,7 +46,7 @@ self.addEventListener("fetch", (event) => {
 
             return response
         } catch (error) {
-            if(cachedFiles) {
+            if (cachedFiles) {
                 return cachedFiles
             } else {
                 throw error
