@@ -17,7 +17,7 @@ tf.serialization.registerClass(L2);
 export const loaderApi = {
     model: (onDownloadProgress: (fraction: number) => void) => {
         return tf.loadLayersModel(endpoints.model, {
-            onProgress: onDownloadProgress,
+            onProgress: (value) => onDownloadProgress(value * 100),
         });
     },
     labels: async (

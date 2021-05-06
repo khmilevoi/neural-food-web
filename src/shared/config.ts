@@ -1,4 +1,3 @@
-console.log(process.env);
 export const config = {
     api: {
         endpoint: process.env.API_ENDPOINT,

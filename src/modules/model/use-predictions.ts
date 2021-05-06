@@ -21,9 +21,9 @@ export const usePredictions = (
             if (model == null || snapshot == null || labels == null) {
                 return [];
             }
-
+    
             const prediction = await predictImage(snapshot, model);
-
+    
             const result = prediction.map<Prediction>((accuracy, index) => ({
                 accuracy,
                 label: labels[index],
@@ -57,7 +57,7 @@ const predictImage = async (
         .expandDims(0);
 
     const predict = await model.predict(preparedData);
-
+    
     if (Array.isArray(predict)) {
         const promises = predict.map((item) => item.data());
 
