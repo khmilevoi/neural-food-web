@@ -1,7 +1,6 @@
 import * as Client from "modules/client";
 import * as Label from "modules/label";
 import { Entity } from "modules/model/entity";
-import { useModel } from "modules/model/use-model";
 import * as tf from "@tensorflow/tfjs";
 import * as React from "react";
 
@@ -11,11 +10,10 @@ export type Prediction = {
 };
 
 export const usePredictions = (
-    modelDescriptor?: Entity,
+    model?: Entity,
     snapshot?: Client.Snapshot,
     labels?: Label.Entity[]
 ) => {
-    const model = useModel(modelDescriptor);
     const [prediction, setPrediction] = React.useState<Prediction[]>([]);
 
     React.useEffect(() => {
@@ -23,9 +21,9 @@ export const usePredictions = (
             if (model == null || snapshot == null || labels == null) {
                 return [];
             }
-
+    
             const prediction = await predictImage(snapshot, model);
-
+    
             const result = prediction.map<Prediction>((accuracy, index) => ({
                 accuracy,
                 label: labels[index],
@@ -52,12 +50,14 @@ const predictImage = async (
 
     const data = await tf.browser.fromPixelsAsync(image);
     const preparedData = data
-        // .resizeNearestNeighbor([299, 299])
-        // .toFloat()
+        .resizeNearestNeighbor([299, 299])
+        .toFloat()
+        .div(255 / 2)
+        .add(-1)
         .expandDims(0);
 
     const predict = await model.predict(preparedData);
-
+    
     if (Array.isArray(predict)) {
         const promises = predict.map((item) => item.data());
 

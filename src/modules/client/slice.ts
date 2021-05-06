@@ -9,11 +9,17 @@ interface ClientState {
     labels?: Label.Entity[];
     snapshot?: Snapshot;
     stage: AppStage;
+    error?: Error;
 }
 
 export type Snapshot = Blob;
 
-export type AppStage = "load-model" | "load-labels" | "camera" | "prediction";
+export type AppStage =
+    | "load-model"
+    | "load-labels"
+    | "camera"
+    | "prediction"
+    | "error";
 
 const initialState: ClientState = {
     stage: "load-model",
@@ -34,6 +40,9 @@ export const clientSlice = createSlice({
         },
         setSnapshot: (state, action: PayloadAction<Snapshot>) => {
             state.snapshot = action.payload;
+        },
+        setError: (state, action: PayloadAction<Error>) => {
+            state.error = action.payload;
         },
     },
 });
