@@ -34,8 +34,9 @@ const createVideoStream = (size: CreateVideoStreamProps) => {
         getUserMedia(
             {
                 video: {
-                    width: size.width,
-                    height: size.height,
+                    facingMode: "environment",
+                    width: size.height,
+                    height: size.width
                 },
             },
             (stream) => resolve(stream),

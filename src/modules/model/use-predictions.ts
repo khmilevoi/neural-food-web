@@ -52,7 +52,7 @@ const predictImage = async (
     const preparedData = data
         .resizeNearestNeighbor([299, 299])
         .toFloat()
-        .div(255)
+        .div(255 / 2)
         .add(-1)
         .expandDims(0);
 
