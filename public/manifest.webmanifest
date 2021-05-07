@@ -2,7 +2,8 @@
   "short_name": "Neural Food",
   "name": "Neural Food",
   "description": "neural food",
-  "scope": "/",
+  "scope": "https://khmilevoi.github.io/neural-food-web/",
+  "gcm_sender_id": "103953800507",
   "icons": [
     {
       "src": "favicon.ico",
@@ -12,7 +13,7 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192 180x180 128x128 120x120"
     },
     {
       "src": "logo512.png",
@@ -21,7 +22,7 @@
     }
   ],
   "orientation": "portrait",
-  "start_url": "/neural-food-web/index.html",
+  "start_url": "https://khmilevoi.github.io/neural-food-web/",
   "display": "fullscreen",
   "theme_color": "#000000",
   "background_color": "#ffffff"
