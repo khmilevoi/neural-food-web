@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Neural Food",
+  "name": "Neural Food",
   "scope": "/",
   "icons": [
     {
@@ -19,8 +19,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/neural-food-web/",
-  "display": "standalone",
+  "start_url": "/neural-food-web/?source=pwa",
+  "display": "fullscreen",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
