@@ -1,6 +1,7 @@
 {
   "short_name": "Neural Food",
   "name": "Neural Food",
+  "description": "neural food",
   "scope": "/",
   "icons": [
     {
@@ -19,7 +20,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/neural-food-web/?source=pwa",
+  "orientation": "portrait",
+  "start_url": "/neural-food-web/index.html",
   "display": "fullscreen",
   "theme_color": "#000000",
   "background_color": "#ffffff"
