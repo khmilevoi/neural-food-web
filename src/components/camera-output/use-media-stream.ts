@@ -27,6 +27,7 @@ export const useMediaStream = (
         createMediaStream(mediaStreamCreators, config)
             .then((stream) => stream && setStream(stream))
             .catch((error) => setError(error));
+        // eslint-disable-next-line
     }, [setStream, setError, ...Object.values(config), ...mediaStreamCreators]);
 
     return [stream, error];
