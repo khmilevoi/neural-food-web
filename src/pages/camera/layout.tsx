@@ -9,6 +9,7 @@ import {
 import { PageWrapper } from "pages/page-wrapper";
 import * as React from "react";
 import { useDispatch } from "react-redux";
+import { useWindowSize } from "../../shared/use-window-size";
 
 const Layout: React.FC = () => {
     const dispatch = useDispatch();
@@ -25,12 +26,14 @@ const Layout: React.FC = () => {
         [dispatch]
     );
 
+    const [width, height] = useWindowSize();
+
     return (
         <PageWrapper>
             <Container>
                 <CameraOutput
-                    width={window.innerWidth}
-                    height={window.innerHeight}
+                    width={width}
+                    height={height}
                     takeSnapshotElement={<PhotoButton />}
                     loadPhotoElement={<LoadPhotoButton />}
                     onLoadPhoto={handleLoadPhoto}

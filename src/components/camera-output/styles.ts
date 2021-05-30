@@ -12,6 +12,17 @@ export const Container = styled.div<ContainerProps>`
     background-color: black;
 `;
 
+type VideoProps = {
+    flip: boolean;
+};
+
+export const Video = styled.video<VideoProps>`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(${({ flip }) => (flip ? "-1" : "1")});
+`;
+
 export const Error = styled.div`
     color: white;
     position: absolute;

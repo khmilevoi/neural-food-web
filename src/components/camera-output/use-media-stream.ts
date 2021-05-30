@@ -1,78 +1,52 @@
 import * as React from "react";
 
-type UseMediaStreamProps = {
+export type MediaStreamConfig = {
     width: number;
     height: number;
 };
 
-export const useMediaStream = ({
-    height,
-    width,
-}: UseMediaStreamProps): [MediaStream | undefined, string | undefined] => {
-    const [stream, setStream] = React.useState<MediaStream>();
+export type MediaStreamDescriptor = {
+    stream: MediaStream | null;
+    needToFlip?: boolean;
+};
+
+export type MediaStreamCreator = (
+    config: MediaStreamConfig
+) => Promise<MediaStreamDescriptor> | null;
+
+export const useMediaStream = (
+    mediaStreamCreators: MediaStreamCreator[],
+    config: MediaStreamConfig
+): [MediaStreamDescriptor | null, string | undefined] => {
+    const [stream, setStream] = React.useState<MediaStreamDescriptor | null>(
+        null
+    );
     const [error, setError] = React.useState<string>();
 
     React.useEffect(() => {
-        createVideoStream({ width, height })
-            .then((stream) => {
-                setStream(stream);
-            })
-            .catch((error) => {
-                console.error(error);
-
-                setError("Camera is not available");
-            });
-    }, [setStream, setError, width, height]);
+        createMediaStream(mediaStreamCreators, config)
+            .then((stream) => stream && setStream(stream))
+            .catch((error) => setError(error));
+    }, [setStream, setError, ...Object.values(config), ...mediaStreamCreators]);
 
     return [stream, error];
 };
 
-type CreateVideoStreamProps = UseMediaStreamProps;
-
-const createVideoStream = (size: CreateVideoStreamProps) => {
-    return new Promise<MediaStream>((resolve, reject) => {
-        getUserMedia(
-            {
-                video: {
-                    facingMode: {exact: "environment"},
-                    width: size.height,
-                    height: size.width
-                },
-            },
-            (stream) => resolve(stream),
-            (error) => reject(error)
-        );
-    });
-};
-
-const getUserMedia = (
-    constraints: MediaStreamConstraints,
-    successCallback: NavigatorUserMediaSuccessCallback,
-    errorCallback: NavigatorUserMediaErrorCallback
+const createMediaStream = async (
+    creators: MediaStreamCreator[],
+    config: MediaStreamConfig
 ) => {
-    if ("getUserMedia" in navigator) {
-        return navigator.getUserMedia(
-            constraints,
-            successCallback,
-            errorCallback
-        );
+    let lastError;
+
+    for (const creator of creators) {
+        try {
+            return await creator(config);
+        } catch (error) {
+            console.error("MediaStreamCreator", error);
+
+            lastError = error;
+        }
     }
 
-    if ("webkitGetUserMedia" in navigator) {
-        // @ts-ignore
-        return navigator.webkitGetUserMedia(
-            constraints,
-            successCallback,
-            errorCallback
-        );
-    }
-
-    if ("mozGetUserMedia" in navigator) {
-        // @ts-ignore
-        return navigator.mozGetUserMedia(
-            constraints,
-            successCallback,
-            errorCallback
-        );
-    }
+    throw lastError;
 };

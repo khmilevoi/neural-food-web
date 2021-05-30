@@ -4,12 +4,15 @@ import { CantDisplayIcon } from "components/icons";
 import * as React from "react";
 import {
     Container,
+    Video,
     PhotoButtonContainer,
     Error,
     LoadPhotoInput,
     PhotoButtons,
     LeftPhotoButton,
 } from "./styles";
+import { mobileMediaStreamCreator } from "./mobile-media-stream-creator";
+import { desktopMediaStreamCreator } from "./desktop-media-stream-creator";
 
 type CameraOutputProps = {
     width: number;
@@ -28,16 +31,16 @@ export const CameraOutput: React.FC<CameraOutputProps> = ({
 }) => {
     const videoRef = React.useRef<HTMLVideoElement>(null);
 
-    const [stream, error] = useMediaStream({
-        height,
-        width,
-    });
+    const [descriptor, error] = useMediaStream(
+        [mobileMediaStreamCreator, desktopMediaStreamCreator],
+        { height, width }
+    );
 
     React.useEffect(() => {
-        if (videoRef.current && stream) {
-            videoRef.current.srcObject = stream;
+        if (videoRef.current && descriptor) {
+            videoRef.current.srcObject = descriptor.stream;
         }
-    }, [stream]);
+    }, [descriptor]);
 
     const takePicture = useTakePictureCallback({
         video: videoRef.current,
@@ -55,7 +58,7 @@ export const CameraOutput: React.FC<CameraOutputProps> = ({
 
     return (
         <Container width={width} height={height}>
-            <video ref={videoRef} autoPlay />
+            <Video ref={videoRef} flip={!!descriptor?.needToFlip} autoPlay />
 
             {error && (
                 <Error>
@@ -70,7 +73,7 @@ export const CameraOutput: React.FC<CameraOutputProps> = ({
 
                 <PhotoButtonContainer
                     onClick={handleClick}
-                    disabled={!stream || !!error}
+                    disabled={!descriptor || !!error}
                 >
                     {takeSnapshotElement}
                 </PhotoButtonContainer>
