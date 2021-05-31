@@ -6,6 +6,7 @@ import * as Model from "modules/model";
 import { PageWrapper } from "pages/page-wrapper";
 import * as React from "react";
 import { useDispatch } from "react-redux";
+import { useWindowSize } from "shared/use-window-size";
 import {
     BackButton,
     Container,
@@ -33,6 +34,8 @@ const Layout: React.FC = () => {
         dispatch(changeStage({ stage: "camera", ms: 0 }));
     }, [dispatch]);
 
+    const [, height] = useWindowSize();
+
     if (client.snapshot == null || client.model == null) {
         return null;
     }
@@ -46,7 +49,7 @@ const Layout: React.FC = () => {
 
                 <ImagePreview src={URL.createObjectURL(client.snapshot)} />
 
-                <SwipeContainer containerHeight={window.innerHeight}>
+                <SwipeContainer containerHeight={height}>
                     <Predictions list={predictions} />
                 </SwipeContainer>
             </Container>
