@@ -67,7 +67,7 @@ export const CameraOutput: React.FC<CameraOutputProps> = ({
         <Container width={width} height={height}>
             <Video ref={videoRef} flip={!!descriptor?.needToFlip} autoPlay />
 
-            {error && (
+            {error && !descriptor?.stream && (
                 <Error>
                     <CantDisplayIcon />
                 </Error>
