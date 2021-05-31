@@ -2,17 +2,20 @@ import { useMediaStream } from "components/camera-output/use-media-stream";
 import { useTakePictureCallback } from "components/camera-output/use-take-picture-callback";
 import { CantDisplayIcon } from "components/icons";
 import * as React from "react";
+import { desktopMediaStreamCreator } from "./desktop-media-stream-creator";
+import {
+    horizontalMobileMediaStreamCreator,
+    mobileMediaStreamCreator,
+} from "./mobile-media-stream-creator";
 import {
     Container,
-    Video,
-    PhotoButtonContainer,
     Error,
-    LoadPhotoInput,
-    PhotoButtons,
     LeftPhotoButton,
+    LoadPhotoInput,
+    PhotoButtonContainer,
+    PhotoButtons,
+    Video,
 } from "./styles";
-import { mobileMediaStreamCreator } from "./mobile-media-stream-creator";
-import { desktopMediaStreamCreator } from "./desktop-media-stream-creator";
 
 type CameraOutputProps = {
     width: number;
@@ -32,7 +35,11 @@ export const CameraOutput: React.FC<CameraOutputProps> = ({
     const videoRef = React.useRef<HTMLVideoElement>(null);
 
     const [descriptor, error] = useMediaStream(
-        [mobileMediaStreamCreator, desktopMediaStreamCreator],
+        [
+            mobileMediaStreamCreator,
+            horizontalMobileMediaStreamCreator,
+            desktopMediaStreamCreator,
+        ],
         { height, width }
     );
 

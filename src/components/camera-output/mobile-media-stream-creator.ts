@@ -15,3 +15,19 @@ export const mobileMediaStreamCreator: MediaStreamCreator = async (config) => {
         stream,
     };
 };
+
+export const horizontalMobileMediaStreamCreator: MediaStreamCreator = async (
+    config
+) => {
+    const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+            facingMode: { exact: "environment" },
+            width: config.width,
+            height: config.height,
+        },
+    });
+
+    return {
+        stream,
+    };
+};
