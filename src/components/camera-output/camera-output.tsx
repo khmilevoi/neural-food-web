@@ -116,6 +116,7 @@ const LoadPhotoButton: React.FC<LoadPhotoButtonProps> = ({
             <LoadPhotoInput
                 type={"file"}
                 id={"photo"}
+                accept={"image/*"}
                 onChange={handleChange}
             />
         </LeftPhotoButton>

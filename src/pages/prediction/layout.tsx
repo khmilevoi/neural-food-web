@@ -36,6 +36,10 @@ const Layout: React.FC = () => {
 
     const [, height] = useWindowSize();
 
+    const url = React.useMemo(() => URL.createObjectURL(client.snapshot), [
+        client.snapshot,
+    ]);
+
     if (client.snapshot == null || client.model == null) {
         return null;
     }
@@ -47,7 +51,7 @@ const Layout: React.FC = () => {
                     <BackIcon />
                 </BackButton>
 
-                <ImagePreview src={URL.createObjectURL(client.snapshot)} />
+                <ImagePreview src={url} />
 
                 <SwipeContainer containerHeight={height}>
                     <Predictions list={predictions} />
