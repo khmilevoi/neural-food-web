@@ -18,19 +18,31 @@ export const useMediaStream = (
     mediaStreamCreators: MediaStreamCreator[],
     config: MediaStreamConfig
 ): [MediaStreamDescriptor | null, string | undefined] => {
-    const [stream, setStream] = React.useState<MediaStreamDescriptor | null>(
-        null
-    );
+    const [
+        descriptor,
+        setDescriptor,
+    ] = React.useState<MediaStreamDescriptor | null>(null);
     const [error, setError] = React.useState<string>();
 
     React.useEffect(() => {
         createMediaStream(mediaStreamCreators, config)
-            .then((stream) => stream && setStream(stream))
+            .then((stream) => stream && setDescriptor(stream))
             .catch((error) => setError(error));
-        // eslint-disable-next-line
-    }, [setStream, setError, ...Object.values(config), ...mediaStreamCreators]);
 
-    return [stream, error];
+        return () => {
+            descriptor?.stream?.getVideoTracks().map((track) => track.stop());
+        };
+
+    }, [
+        setDescriptor,
+        setError,
+        // eslint-disable-next-line
+        ...Object.values(config),
+        // eslint-disable-next-line
+        ...mediaStreamCreators,
+    ]);
+
+    return [descriptor, error];
 };
 
 const createMediaStream = async (
