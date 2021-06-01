@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 
 export type MediaStreamConfig = {
@@ -32,13 +33,10 @@ export const useMediaStream = (
         return () => {
             descriptor?.stream?.getVideoTracks().map((track) => track.stop());
         };
-
     }, [
         setDescriptor,
         setError,
-        // eslint-disable-next-line
         ...Object.values(config),
-        // eslint-disable-next-line
         ...mediaStreamCreators,
     ]);
 
