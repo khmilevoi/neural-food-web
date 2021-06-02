@@ -1,19 +1,4 @@
 /* eslint-disable no-restricted-globals */
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("sw.js").then(
-            (registration) => {
-                console.log(
-                    "Service Worker registration successful: ",
-                    registration
-                );
-            },
-            (err) => {
-                console.log("Registration failed", err);
-            }
-        );
-    });
-}
 
 const createPath = (path) => {
     if (location.hostname === "localhost") {
