@@ -30,7 +30,14 @@ export const loadData = createAsyncThunk<void, LoadDataArg>(
             if (entity === "labels") {
                 const labels = await loaderApi.labels(onDownloadProgress);
 
-                thunkAPI.dispatch(clientSlice.actions.setLabels(labels));
+                thunkAPI.dispatch(
+                    clientSlice.actions.setLabels(
+                        labels.map((label) => ({
+                            title: label.title,
+                            image: `data:image/png;base64, ${label.image}`,
+                        }))
+                    )
+                );
             }
 
             thunkAPI.dispatch(loaderSlice.actions.changeStatus("default"));
