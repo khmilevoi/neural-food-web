@@ -6,12 +6,12 @@
     "camera.js.map": "/neural-food-web/static/js/camera.a5d0beef.chunk.js.map",
     "error.js": "/neural-food-web/static/js/error.e70e1a1c.chunk.js",
     "error.js.map": "/neural-food-web/static/js/error.e70e1a1c.chunk.js.map",
-    "loading.js": "/neural-food-web/static/js/loading.35861eed.chunk.js",
-    "loading.js.map": "/neural-food-web/static/js/loading.35861eed.chunk.js.map",
+    "loading.js": "/neural-food-web/static/js/loading.edba3633.chunk.js",
+    "loading.js.map": "/neural-food-web/static/js/loading.edba3633.chunk.js.map",
     "main.js": "/neural-food-web/static/js/main.4e34dc41.chunk.js",
     "main.js.map": "/neural-food-web/static/js/main.4e34dc41.chunk.js.map",
-    "runtime-main.js": "/neural-food-web/static/js/runtime-main.489dac67.js",
-    "runtime-main.js.map": "/neural-food-web/static/js/runtime-main.489dac67.js.map",
+    "runtime-main.js": "/neural-food-web/static/js/runtime-main.3d10519d.js",
+    "runtime-main.js.map": "/neural-food-web/static/js/runtime-main.3d10519d.js.map",
     "static/css/6.6c0f60ba.chunk.css": "/neural-food-web/static/css/6.6c0f60ba.chunk.css",
     "static/js/6.ce1ebdca.chunk.js": "/neural-food-web/static/js/6.ce1ebdca.chunk.js",
     "static/js/6.ce1ebdca.chunk.js.map": "/neural-food-web/static/js/6.ce1ebdca.chunk.js.map",
@@ -24,7 +24,7 @@
     "static/js/7.381b45a8.chunk.js.LICENSE.txt": "/neural-food-web/static/js/7.381b45a8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.489dac67.js",
+    "static/js/runtime-main.3d10519d.js",
     "static/js/7.381b45a8.chunk.js",
     "static/js/main.4e34dc41.chunk.js"
   ]
